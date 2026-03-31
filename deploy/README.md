@@ -6,6 +6,60 @@ One-click deployment of the KWeaver AI platform to a single-node Kubernetes clus
 
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](../LICENSE.txt)
 
+## 📋 Prerequisites
+### Host prerequisites (required)
+
+```bash
+# 1. Disable firewall
+systemctl stop firewalld && systemctl disable firewalld
+
+# 2. Disable swap
+swapoff -a && sed -i '/ swap / s/^/#/' /etc/fstab
+
+# 3. Disable SELinux (optional; the script may handle this)
+setenforce 0
+
+# 4. Manually install containerd.io
+dnf install containerd.io
+```
+### Network requirements
+
+The deployment scripts need access to the following domains:
+
+| Domain | Purpose |
+| --- | --- |
+| `mirrors.aliyun.com` | RPM package mirrors |
+| `mirrors.tuna.tsinghua.edu.cn` | TUNA `containerd.io` RPM mirror |
+| `registry.aliyuncs.com` | Kubernetes component images |
+| `swr.cn-east-3.myhuaweicloud.com` | Application images registry |
+| `repo.huaweicloud.com` | Helm binary download |
+| `kweaver-ai.github.io` | KWeaver Helm chart repository |
+
+### System requirements
+
+| Item | Minimum | Recommended |
+| --- | --- | --- |
+| OS | CentOS 7/8+, RHEL 8 | CentOS 7 |
+| CPU | 16 cores | 24 cores |
+| Memory | 48 GB | 64 GB |
+| Disk | 200 GB | 500 GB |
+## 📦 Components
+
+### Infrastructure
+
+- **Kubernetes** v1.28 (single-node)
+- **containerd** v1.6+
+- **Flannel CNI** v0.25.5
+- **ingress-nginx** v1.14.1
+
+### Data services
+
+- **MariaDB** v11.4.7
+- **MongoDB** v4.4.30
+- **Redis** v7.4.6 (Sentinel)
+- **Kafka** v3.9.0
+- **OpenSearch** v2.19.4
+- **ZooKeeper** v3.9.3
 ## 🚀 Quick Start
 
 ```bash
@@ -28,64 +82,6 @@ bash ./deploy.sh kweaver-core install
 ```
 
 After deployment, open `https://<node-ip>/studio`. Username: `admin`, initial password: `eisoo.com`.
-
-## 📋 Prerequisites
-
-### System requirements
-
-| Item | Minimum | Recommended |
-| --- | --- | --- |
-| OS | CentOS 7/8+, RHEL 8 | CentOS 7 |
-| CPU | 16 cores | 24 cores |
-| Memory | 48 GB | 64 GB |
-| Disk | 200 GB | 500 GB |
-
-### Host prerequisites (required)
-
-```bash
-# 1. Disable firewall
-systemctl stop firewalld && systemctl disable firewalld
-
-# 2. Disable swap
-swapoff -a && sed -i '/ swap / s/^/#/' /etc/fstab
-
-# 3. Disable SELinux (optional; the script may handle this)
-setenforce 0
-
-# 4. Manually install containerd.io
-dnf install containerd.io
-```
-
-### Network requirements
-
-The deployment scripts need access to the following domains:
-
-| Domain | Purpose |
-| --- | --- |
-| `mirrors.aliyun.com` | RPM package mirrors |
-| `mirrors.tuna.tsinghua.edu.cn` | TUNA `containerd.io` RPM mirror |
-| `registry.aliyuncs.com` | Kubernetes component images |
-| `swr.cn-east-3.myhuaweicloud.com` | Application images registry |
-| `repo.huaweicloud.com` | Helm binary download |
-| `kweaver-ai.github.io` | KWeaver Helm chart repository |
-
-## 📦 Components
-
-### Infrastructure
-
-- **Kubernetes** v1.28 (single-node)
-- **containerd** v1.6+
-- **Flannel CNI** v0.25.5
-- **ingress-nginx** v1.14.1
-
-### Data services
-
-- **MariaDB** v11.4.7
-- **MongoDB** v4.4.30
-- **Redis** v7.4.6 (Sentinel)
-- **Kafka** v3.9.0
-- **OpenSearch** v2.19.4
-- **ZooKeeper** v3.9.3
 
 ## 🔧 Usage
 
