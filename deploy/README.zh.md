@@ -6,6 +6,63 @@
 
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](../LICENSE.txt)
 
+## 📋 Prerequisites
+### ⚠️ 前置条件（必须执行）
+
+```bash
+# 1. 关闭防火墙
+systemctl stop firewalld && systemctl disable firewalld
+
+# 2. 关闭 Swap
+swapoff -a && sed -i '/ swap / s/^/#/' /etc/fstab
+
+# 3. 关闭 SELinux（可选，脚本会自动处理）
+setenforce 0
+
+# 4. 手动安装  containerd.io
+dnf install containerd.io
+```
+### 网络要求
+
+部署脚本需要访问以下域名：
+
+| 域名 | 用途 |
+|------|------|
+| `mirrors.aliyun.com` | RPM 软件包源 |
+| `mirrors.tuna.tsinghua.edu.cn` | 清华大学containerd.io RPM源  |
+| `registry.aliyuncs.com` | Kubernetes 组件镜像 |
+| `swr.cn-east-3.myhuaweicloud.com` | 应用镜像仓库 |
+| `repo.huaweicloud.com` | Helm 二进制文件 |
+| `kweaver-ai.github.io` | Kweaver 服务Helm Chart 仓库 |
+
+### 硬件配置
+
+| 项目 | 最低配置 | 推荐配置 |
+|------|---------|---------|
+| OS | CentOS 7/8+, RHEL 8 | CentOS 7 |
+| CPU | 16 核 | 24 核 |
+| 内存 | 48 GB | 64 GB |
+| 磁盘 | 200 GB | 500 GB |
+
+
+## 📦 Components
+
+### 基础设施
+
+- **Kubernetes** v1.28 (单节点)
+- **containerd** v1.6+
+- **Flannel CNI** v0.25.5
+- **ingress-nginx** v1.14.1
+
+### 数据服务
+
+- **MariaDB** v11.4.7
+- **MongoDB** v4.4.30
+- **Redis** v7.4.6 (Sentinel)
+- **Kafka** v3.9.0
+- **OpenSearch** v2.19.4
+- **ZooKeeper** v3.9.3
+
 ## 🚀 Quick Start
 
 ```bash
@@ -28,64 +85,6 @@ bash ./deploy.sh kweaver-dip install
 ```
 
 部署完成后，访问 `https://<节点IP>/studio` 即可使用,账号admin，初始密码eisoo.com
-
-## 📋 Prerequisites
-
-### 系统要求
-
-| 项目 | 最低配置 | 推荐配置 |
-|------|---------|---------|
-| OS | CentOS 7/8+, RHEL 8 | CentOS 7 |
-| CPU | 16 核 | 24 核 |
-| 内存 | 48 GB | 64 GB |
-| 磁盘 | 200 GB | 500 GB |
-
-### 前置条件（必须）
-
-```bash
-# 1. 关闭防火墙
-systemctl stop firewalld && systemctl disable firewalld
-
-# 2. 关闭 Swap
-swapoff -a && sed -i '/ swap / s/^/#/' /etc/fstab
-
-# 3. 关闭 SELinux（可选，脚本会自动处理）
-setenforce 0
-
-# 4. 手动安装  containerd.io
-dnf install containerd.io
-```
-
-### 网络要求
-
-部署脚本需要访问以下域名：
-
-| 域名 | 用途 |
-|------|------|
-| `mirrors.aliyun.com` | RPM 软件包源 |
-| `mirrors.tuna.tsinghua.edu.cn` | 清华大学containerd.io RPM源  |
-| `registry.aliyuncs.com` | Kubernetes 组件镜像 |
-| `swr.cn-east-3.myhuaweicloud.com` | 应用镜像仓库 |
-| `repo.huaweicloud.com` | Helm 二进制文件 |
-| `kweaver-ai.github.io` | Kweaver 服务Helm Chart 仓库 |
-
-## 📦 Components
-
-### 基础设施
-
-- **Kubernetes** v1.28 (单节点)
-- **containerd** v1.6+
-- **Flannel CNI** v0.25.5
-- **ingress-nginx** v1.14.1
-
-### 数据服务
-
-- **MariaDB** v11.4.7
-- **MongoDB** v4.4.30
-- **Redis** v7.4.6 (Sentinel)
-- **Kafka** v3.9.0
-- **OpenSearch** v2.19.4
-- **ZooKeeper** v3.9.3
 
 ## 🔧 Usage
 
