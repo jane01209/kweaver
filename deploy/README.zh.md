@@ -7,7 +7,7 @@
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](../LICENSE.txt)
 
 ## 📋 Prerequisites
-### ⚠️ 前置条件（必须执行）
+### ⚠️ 前置条件（必须）
 
 ```bash
 # 1. 关闭防火墙
@@ -35,7 +35,7 @@ dnf install containerd.io
 | `repo.huaweicloud.com` | Helm 二进制文件 |
 | `kweaver-ai.github.io` | Kweaver 服务Helm Chart 仓库 |
 
-### 硬件配置
+### 系统要求
 
 | 项目 | 最低配置 | 推荐配置 |
 |------|---------|---------|
