@@ -7,7 +7,7 @@ One-click deployment of the KWeaver AI platform to a single-node Kubernetes clus
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](../LICENSE.txt)
 
 ## 📋 Prerequisites
-### Host prerequisites (required)
+### ⚠️ Host prerequisites (required)
 
 ```bash
 # 1. Disable firewall
